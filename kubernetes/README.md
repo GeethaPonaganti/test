@@ -2,6 +2,63 @@
 Check [wiki](https://github.com/OpsMx/scripts/wiki/Kubernetes) for more info 
 
 * `curl https://raw.githubusercontent.com/OpsMx/scripts/master/kubernetes/ubuntu-kube-installer.sh | bash`
+## Retrives PODS from `Prometheus` TSDB
+##### **Dependency: `requests` Python module required: `sudo pip2 install requests`
+* Help
+```
+veeru@ultron:~/kubernetes$ python2 pods-finder-prometheus.py -h
+usage: pods-finder-prometheus.py [-h] [-c CLS_NAME] [-C CURRENT_CLS_NAME]
+                                 [-s SERVERIP] [-n NAMESPACE]
+
+Retrives pods in cluster/Replicasets from Prometheus
+
+optional arguments:
+  -h, --help           show this help message and exit
+  -c CLS_NAME          Gets the pods in this cluster
+  -C CURRENT_CLS_NAME  Gets the pods in 'current' cluster
+  -s SERVERIP          Prometheus server IP
+  -n NAMESPACE         Namespace, Default:'default'
+
+```
+* ##### Gets all pods in `current deployed` cluster
+```
+veeru@ultron:~/kubernetes$ python2 pods-finder-prometheus.py -s xx.xx.xx.105 -n default -C oxygen-prod-current
+[
+   {
+      "applicationName":"oxygen",
+      "creationTimestamp":"2017-11-13T19:03:43.031991375Z",
+      "sgName":"oxygen-prod-v001-rz4wt",
+      "podName":"oxygen-prod-v001-rz4wt"
+   },
+   {
+      "applicationName":"oxygen",
+      "creationTimestamp":"2017-11-13T19:03:43.019775014Z",
+      "sgName":"oxygen-prod-v001-7cncr",
+      "podName":"oxygen-prod-v001-7cncr"
+   }
+]
+```
+* ##### Gets all pods in `specified` cluster
+```
+veeru@ultron:~/kubernetes$ python2 pods-finder-prometheus.py -s xx.xx.xx.105 -n default -c oxygen-prod-v001
+
+[
+   {
+      "applicationName":"oxygen",
+      "creationTimestamp":"2017-11-13T19:03:43.031991375Z",
+      "sgName":"oxygen-prod-v001-rz4wt",
+      "podName":"oxygen-prod-v001-rz4wt"
+   },
+   {
+      "applicationName":"oxygen",
+      "creationTimestamp":"2017-11-13T19:03:43.019775014Z",
+      "sgName":"oxygen-prod-v001-7cncr",
+      "podName":"oxygen-prod-v001-7cncr"
+   }
+]
+```
+
+
 ## Retrieves PODS in cluster/Replicasets (Version 2)
 ##### **Dependency: `kubernetes` Python module required: `sudo pip2 install kubernetes`
 ##### To download,RUN-> wget -qO pods-finder.py https://raw.githubusercontent.com/OpsMx/scripts/master/kubernetes/pods-finder2.py
