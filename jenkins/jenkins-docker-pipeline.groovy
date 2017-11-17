@@ -6,7 +6,7 @@ node {
     }
 
     stage "Build Docker Image"
-        docker.withServer('tcp://52.26.133.238:4342'){
+        docker.withServer('tcp://xx.xx.xx.xx:4342'){
             def Img = docker.build("veerendra2/php-docker-apache-example:${env.BUILD_NUMBER}",'.')
             echo "Image id: $Img.id";
             echo "Build no: $BUILD_NUMBER";
