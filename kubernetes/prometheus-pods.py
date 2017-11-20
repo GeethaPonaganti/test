@@ -76,8 +76,8 @@ class PrometheusAPI:
 if __name__ == '__main__':
     NAMESPACE = "default"
     parser = argparse.ArgumentParser(description="Retrives pods in cluster/Replicasets from Prometheus")
-    parser.add_argument("-c", action="store", dest="cls_name", help="Gets the pods in this cluster (Baseline)")
-    parser.add_argument("-C", action="store", dest="current_cls_name", help="Gets the pods in 'current' cluster (Current)")
+    parser.add_argument("-c", action="store", dest="cls_name", help="Gets the pods in this cluster(Baseline)")
+    parser.add_argument("-C", action="store", dest="current_cls_name", help="Gets the pods in 'current' cluster(Curent)")
     parser.add_argument("-s", action="store", dest="serverip", help="Prometheus enpoint. Format SERVERIP:PORT")
     parser.add_argument("-n", action="store", dest="namespace", help="Namespace, Default:'default'")
     options = parser.parse_args()
@@ -87,19 +87,19 @@ if __name__ == '__main__':
             print "[!] Invalid enpoint. The endpoint should be like http:127.0.0.1:9090"
             exit(1)
     else:
-        print "[!] Please specify prometheus endpoint. For help-> python pods-prometheus.py -h"
+        print "[!] Please specify prometheus endpoint. For help-> python pods-finder-prometheus.py -h"
         exit(1)
     if options.namespace:
         NAMESPACE = options.namespace
     if options.cls_name and options.serverip:
-        pro = PrometheusAPI(options.serverip, NAMESPACE)
+        pro = PrometheusAPI(match[0], NAMESPACE)
         pro.get_pods(options.cls_name)
         exit(0)
     elif options.current_cls_name and options.serverip:
-        pro = PrometheusAPI(options.serverip, NAMESPACE)
+        pro = PrometheusAPI(match[0], NAMESPACE)
         latest_cluster = pro.get_latest_cluster(options.current_cls_name.replace("-current", ""))
         pro.get_pods(latest_cluster)
         exit(0)
     else:
-        print "[!] Please specify 'cluster name'. Help-> python2 pods-finder.py -h"
+        print "[!] Please specify 'cluster name'. Help-> python2 pods-finder-prometheus.py -h"
         exit(1)
