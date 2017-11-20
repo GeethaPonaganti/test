@@ -2,28 +2,28 @@
 Check [wiki](https://github.com/OpsMx/scripts/wiki/Kubernetes) for more info 
 
 * `curl https://raw.githubusercontent.com/OpsMx/scripts/master/kubernetes/ubuntu-kube-installer.sh | bash`
-## Retrives PODS from `Prometheus` TSDB
+## Retrives PODS from `Prometheus`
 ##### **Dependency: `requests` Python module required: `sudo pip2 install requests`
 ##### Download RUN-> wget -qO prometheus-pods.py https://raw.githubusercontent.com/OpsMx/scripts/master/kubernetes/prometheus-pods.py
 * Help
 ```
-veeru@ultron:~/kubernetes$ python2 pods-finder-prometheus.py -h
-usage: pods-finder-prometheus.py [-h] [-c CLS_NAME] [-C CURRENT_CLS_NAME]
-                                 [-s SERVERIP] [-n NAMESPACE]
+ubuntu@localhost:~$ python2 pods-prometheus.py -h
+usage: pods-prometheus.py [-h] [-c CLS_NAME] [-C CURRENT_CLS_NAME]
+                          [-s SERVERIP] [-n NAMESPACE]
 
 Retrives pods in cluster/Replicasets from Prometheus
 
 optional arguments:
   -h, --help           show this help message and exit
-  -c CLS_NAME          Gets the pods in this cluster
-  -C CURRENT_CLS_NAME  Gets the pods in 'current' cluster
-  -s SERVERIP          Prometheus server IP
+  -c CLS_NAME          Gets the pods in this cluster(Baseline)
+  -C CURRENT_CLS_NAME  Gets the pods in 'current' cluster(Current)
+  -s SERVERIP          Prometheus enpoint. Format SERVERIP:PORT
   -n NAMESPACE         Namespace, Default:'default'
 
 ```
 * ##### Gets all pods in `current deployed` cluster
 ```
-veeru@ultron:~/kubernetes$ python2 pods-finder-prometheus.py -s xx.xx.xx.105 -n default -C oxygen-prod-current
+veeru@ultron:~/kubernetes$ python2 pods-finder-prometheus.py -s xx.xx.xx.105:9090 -n default -C oxygen-prod-current
 [
    {
       "applicationName":"oxygen",
@@ -41,7 +41,7 @@ veeru@ultron:~/kubernetes$ python2 pods-finder-prometheus.py -s xx.xx.xx.105 -n 
 ```
 * ##### Gets all pods in `specified` cluster
 ```
-veeru@ultron:~/kubernetes$ python2 pods-finder-prometheus.py -s xx.xx.xx.105 -n default -c oxygen-prod-v001
+veeru@ultron:~/kubernetes$ python2 pods-finder-prometheus.py -s xx.xx.xx.105:9090 -n default -c oxygen-prod-v001
 
 [
    {
@@ -101,7 +101,7 @@ ubuntu@opsmx:~$ python2 pods-finder.py -n default -f /home/ubuntu/.kube/config -
 ```
 * ##### Gets all pods in `current deployed` cluster
 ```
-root@ultron:/# python2 pods-finder.py -n default -f /home/ubuntu/.kube/config -C radium-prod-current
+root@ultron:/# python2 pods-finder.py -n default -f /home/ubuntu/.kube/config -c radium-prod-v003
 [
    {
       "applicationName":"radium",
