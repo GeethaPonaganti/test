@@ -76,16 +76,14 @@ class PrometheusAPI:
 if __name__ == '__main__':
     NAMESPACE = "default"
     parser = argparse.ArgumentParser(description="Retrives pods in cluster/Replicasets from Prometheus")
-    parser.add_argument("-c", action="store", dest="cls_name", help="Gets the pods in this cluster(Baseline)")
-    parser.add_argument("-C", action="store", dest="current_cls_name", help="Gets the pods in 'current' cluster(Curent)")
+    parser.add_argument("-c", action="store", dest="cls_name", help="Gets the pods in this cluster (Baseline)")
+    parser.add_argument("-C", action="store", dest="current_cls_name", help="Gets the pods in 'current' cluster (Current)")
     parser.add_argument("-s", action="store", dest="serverip", help="Prometheus enpoint. Format SERVERIP:PORT")
     parser.add_argument("-n", action="store", dest="namespace", help="Namespace, Default:'default'")
     options = parser.parse_args()
     if options.serverip:
         match = re.findall(r'[0-9]+(?:\.[0-9]+){3}:[0-9]+', options.serverip)
-        if match:
-            SERVERIP = match[0]
-        else:
+        if not match:
             print "[!] Invalid enpoint. The endpoint should be like http:127.0.0.1:9090"
             exit(1)
     else:
