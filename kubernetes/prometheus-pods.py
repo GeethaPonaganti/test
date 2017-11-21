@@ -64,7 +64,7 @@ class PrometheusAPI:
                     info = {
                         "applicationName": items["container_label_app"],
                         "podName": items["container_label_io_kubernetes_pod_name"],
-                        "sgName": items["container_label_io_kubernetes_pod_name"],
+                        "sgName": items["container_label_replication_controller"],
                         "creationTimestamp": items["container_label_annotation_kubernetes_io_config_seen"],
                         }
                     data.append(info)
