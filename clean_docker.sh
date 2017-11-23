@@ -2,7 +2,7 @@
 echo "Killing all docker container...."
 for number in {1,2}
 do
-	sudo docker rm -f `sudo docker ps | awk '{print $1}' | tail -n+2`
+	sudo docker rm -f `sudo docker ps -a | awk '{print $1}' | tail -n+2`
 	sleep 1
 done
 
