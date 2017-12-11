@@ -1,0 +1,54 @@
+# Reference configuration for "AWS and K8s auto discovery"
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'EC2Discovery-port-9117'
+    ec2_sd_configs:
+      - region: us-west-2
+        access_key: <KEY>
+        secret_key: <KEY>
+        port: 9117
+    relabel_configs:
+      - source_labels: ['__meta_ec2_tag_Name']
+        target_label: tagname
+      - source_labels: ['__meta_ec2_instance_id']
+        target_label: instance
+      - source_labels: ['__meta_ec2_private_ip']
+        target_label: private_ip
+      - source_labels: ['__meta_ec2_public_ip']
+        target_label: public_ip
+      - source_labels: ['__address__']
+        target_label: ip
+
+  - job_name: 'GKE'
+    honor_labels: true
+    static_configs:
+      - targets: ['xx.xx.xx.xx:9090']
+      - targets: ['xx.xx.xx.xx:9090']
+
+  - job_name: 'Federate-GKE'
+    scrape_interval: 15s
+    honor_labels: true
+    metrics_path: '/federate'
+    params:
+      'match[]':
+        - '{job="kubernetes"}'
+        - '{__name__=~"job:.*"}'
+    static_configs:
+      - targets:
+        - 'xx.xx.xx.x:31909'
