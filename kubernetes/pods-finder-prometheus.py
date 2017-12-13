@@ -1,4 +1,4 @@
-#!/usr//bin/env python2
+#!/usr/bin/env python2
 '''
 Author : OpsMx
 Description :  Retrives pods in cluster/Replicasets from Prometheus
@@ -8,6 +8,7 @@ import json
 import argparse
 import warnings
 import re
+from datetime import datetime
 warnings.filterwarnings("ignore")
 
 try:
@@ -40,7 +41,9 @@ class PrometheusAPI:
         for items in json_data["data"]:
             if items["__name__"] == METRIC_NAME:
                 try:
-                    version.setdefault(int(items["container_label_version"]), items["container_label_replication_controller"])
+                    times = items["container_label_annotation_kubernetes_io_config_seen"][:-4]
+                    version.setdefault(datetime.strptime(times, '%Y-%m-%dT%H:%M:%S.%f'), items["container_label_replication_controller"])
+                    #version.setdefault(int(items["container_label_version"]), items["container_label_replication_controller"])
                 except KeyError:
                     pass
         if version:
@@ -50,7 +53,8 @@ class PrometheusAPI:
             exit(1)
 
     def get_pods(self, replicaset_name):
-        data =list()
+        data1 = list()
+        data2 = dict()
         try:
             json_data = requests.get(REPLICASET_URL.format(self.serverip, METRIC_NAME, replicaset_name), timeout=5).json()
         except requests.exceptions.ConnectTimeout:
@@ -67,10 +71,13 @@ class PrometheusAPI:
                         "sgName": items["container_label_replication_controller"],
                         "creationTimestamp": items["container_label_annotation_kubernetes_io_config_seen"],
                         }
-                    data.append(info)
+                    #data1.append(info)
+                    times = items["container_label_annotation_kubernetes_io_config_seen"][:-4]  # Removing Zone
+                    data2.setdefault(datetime.strptime(times, '%Y-%m-%dT%H:%M:%S.%f'), info)
                 except KeyError:
                     pass
-        print json.dumps(data)
+        #print json.dumps(data1)
+        print json.dumps([data2[max(data2)]])
 
 
 if __name__ == '__main__':
