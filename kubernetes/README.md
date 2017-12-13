@@ -4,7 +4,7 @@ Check [wiki](https://github.com/OpsMx/scripts/wiki/Kubernetes) for more info
 * `curl https://raw.githubusercontent.com/OpsMx/scripts/master/kubernetes/ubuntu-kube-installer.sh | bash`
 ## Retrives PODS from `Prometheus`
 ##### **Dependency: `requests` Python module required: `sudo pip2 install requests`
-##### Download RUN-> wget -qO pods-finder-prometheus.py https://raw.githubusercontent.com/OpsMx/scripts/master/kubernetes/prometheus-pods.py
+##### Download RUN-> `wget -qO pods-finder-prometheus.py https://raw.githubusercontent.com/OpsMx/scripts/master/kubernetes/pods-finder-prometheus.py`
 * Help
 ```
 ubuntu@localhost:~$ python2 pods-finder-prometheus.py -h
