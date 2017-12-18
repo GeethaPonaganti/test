@@ -1,4 +1,4 @@
-#!/usr//bin/env python2
+#!/usr/bin/env python2
 '''
 Author : OpsMx
 Description :  Retrives pods in cluster/Replicasets
