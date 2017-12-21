@@ -18,7 +18,7 @@ kubectl create -f https://raw.githubusercontent.com/OpsMx/scripts/master/prometh
 ```
 kubectl create -f https://raw.githubusercontent.com/OpsMx/scripts/master/prometheus/prometheus-deployment.yml
 ```
- * Open TCP port `30900` on any one node in cluster. Access UI one the node IP with `30900` like `http:<NODE_IP>:30900`
+ * Open TCP port `30900` **on any one node in cluster**. Access UI one the node IP with `30900` like `http:<NODE_IP>:30900`
  * Automated script to launch: `curl https://raw.githubusercontent.com/OpsMx/scripts/master/prometheus/start.sh | bash`
  * Automated script to kill: `curl https://github.com/OpsMx/scripts/blob/master/prometheus/kill.sh | bash`
 
