@@ -5,6 +5,8 @@
 * Get the reference config file -> https://raw.githubusercontent.com/OpsMx/scripts/master/prometheus/prometheus.yml
 * Inside directory, run `nohup ./prometheus --config.file=prometheus.yml &`
 
+* PostgresSQL in Docker: https://www.andreagrandi.it/2015/02/21/how-to-create-a-docker-image-for-postgresql-and-persist-data/
+
 # Setting up K8s Monitoring with Prometheus
 ##### 1. Launch cAdvisor `DeamonSet`. K8s will launch a POD on every node in cluster.
 ```
