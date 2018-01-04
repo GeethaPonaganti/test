@@ -40,18 +40,18 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 kubectl taint nodes --all node-role.kubernetes.io/master-
 kubectl create clusterrolebinding anonymous-cluster-admin-binding --clusterrole=cluster-admin --user=system:anonymous
-echo "Launching cAdvisor Container"
-sudo docker run \
-  --volume=/:/rootfs:ro \
-  --volume=/var/run:/var/run:rw \
-  --volume=/sys:/sys:ro \
-  --volume=/var/lib/docker/:/var/lib/docker:ro \
-  --volume=/dev/disk/:/dev/disk:ro \
-  --publish=9090:8080 \
-  --detach=true \
-  --name=cadvisor \
-  --restart always \
-  google/cadvisor:latest
+#echo "Launching cAdvisor Container"
+#sudo docker run \
+#  --volume=/:/rootfs:ro \
+#  --volume=/var/run:/var/run:rw \
+#  --volume=/sys:/sys:ro \
+#  --volume=/var/lib/docker/:/var/lib/docker:ro \
+#  --volume=/dev/disk/:/dev/disk:ro \
+#  --publish=9090:8080 \
+#  --detach=true \
+#  --name=cadvisor \
+#  --restart always \
+#  google/cadvisor:latest
 echo ""
 echo "**===============IMPORT NOTE===============**"
 echo "1. PLEASE DO CHANGES AS SPECIFIED in https://goo.gl/fMLVEA"
