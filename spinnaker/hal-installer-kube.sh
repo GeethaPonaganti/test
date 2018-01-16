@@ -1,6 +1,6 @@
 #!/bin/bash
 USERNAME=veerendra2
-REPOSITORIES=veerendra2/simple-php-app
+REPOSITORIES=veerendra2/restapp
 ADDRESS=quay.io
 file=~/.kube/config
 if [ -f "$file" ]
