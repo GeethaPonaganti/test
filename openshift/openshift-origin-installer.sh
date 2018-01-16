@@ -3,7 +3,7 @@
 FIND_IP=http://checkip.amazonaws.com/
 #sudo yum remove docker docker-common docker-selinux docker-engine -y
 echo "Installing Docker"
-sudo yum -y install ftp://fr2.rpmfind.net/linux/centos/7.3.1611/extras/x86_64/Packages/container-selinux-2.9-4.el7.noarch.rpm
+sudo yum -y install http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.21-1.el7.noarch.rpm
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2 wget git
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo yum makecache fast
