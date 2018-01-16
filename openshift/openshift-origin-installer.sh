@@ -13,13 +13,13 @@ sudo systemctl start docker.service
 echo "Docker Installation Successfull!"
 echo ""
 echo ""
-echo "Setup will start Openshift Origin v1.5.1 installation in 3 seconds.(Press Ctrl+c to exit!)"
+echo "Setup will start Openshift installation in 3 seconds, please ensure that oc binary is in /bin/.(or press Ctrl+c to stop!)"
 echo ""
 echo ""
 sleep 3
-wget https://github.com/openshift/origin/releases/download/v3.6.0/openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit.tar.gz
-tar -xvf openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit.tar.gz
-sudo cp openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit/oc /bin/
+#wget https://github.com/openshift/origin/releases/download/v3.6.0/openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit.tar.gz
+#tar -xvf openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit.tar.gz
+#sudo cp openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit/oc /bin/
 sudo tee /etc/docker/daemon.json > /dev/null <<EOF
 {
    "insecure-registries": [
@@ -33,10 +33,10 @@ sudo systemctl restart docker
 PUBLIC_IP=`curl -s "$FIND_IP"`
 if [[ -n "$PUBLIC_IP" ]]; then
   echo "\nYour Public IP: $PUBLIC_IP"
-  oc cluster up --version=v1.5.1 --public-hostname=$PUBLIC_IP
+  oc cluster up --public-hostname=$PUBLIC_IP #--version=v1.5.1
 else
   echo "\nNot able to find your public IP"
-  oc cluster up --version=v1.5.1
+  oc cluster up #--version=v1.5.1
 fi
 sudo systemctl stop firewalld
 echo ""
