@@ -23,10 +23,6 @@ else
   echo "Docker Installation Failed"
   exit 1
 fi
-if [[ -z `cat /etc/lsb-release | grep 16.04` ]]; then
-  echo "Exiting installation of Kubernetes(with kubeadm) which requries Ubuntu 16.04"
-  exit 1
-fi
 echo ""
 echo "Do you want to install Kubernetes?[y/n]"
 read ans
