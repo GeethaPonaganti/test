@@ -14,7 +14,8 @@ sudo apt-get install apt-transport-https ca-certificates curl software-propertie
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - -y
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" -y
 sudo apt-get update
-sudo apt-get install docker-ce --allow-unauthenticated
+sudo apt-get install -y docker-ce --allow-unauthenticated
+sudo usermod -aG docker $USER
 echo "Docker Installation Successfull"
 if [[ -z `cat /etc/lsb-release | grep 16.04` ]]; then
   echo "Exiting installation of Kubernetes which requries Ubuntu 16.04"
