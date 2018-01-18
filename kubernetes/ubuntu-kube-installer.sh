@@ -16,14 +16,25 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update
 sudo apt-get install -y docker-ce --allow-unauthenticated
 sudo usermod -aG docker $USER
-echo "Docker Installation Successfull"
+docker ps
+if [ $? == 0 ]; then
+  echo "Docker Installation Successfull"
+else
+  echo "Docker Installation Failed"
+  exit 1
+fi
 if [[ -z `cat /etc/lsb-release | grep 16.04` ]]; then
-  echo "Exiting installation of Kubernetes which requries Ubuntu 16.04"
+  echo "Exiting installation of Kubernetes(with kubeadm) which requries Ubuntu 16.04"
   exit 1
 fi
 echo ""
-echo "Setup will start Kubernetes installation in 3 seconds.(Press Ctrl+c to exit!)"
-sleep 3
+echo "Do you want to install Kubernetes?[y/n]"
+read ans
+if [ "$ans" == "y" ]; then
+if [[ -z `cat /etc/lsb-release | grep 16.04` ]]; then
+  echo "Exiting installation of Kubernetes(with kubeadm) which requries Ubuntu 16.04"
+  exit 1
+fi
 sudo apt-get install -y apt-transport-https
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - -y
 echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -66,3 +77,4 @@ echo "3. RUN==> kubectl apply -f https://raw.githubusercontent.com/coreos/flanne
 #kubectl cluster-info
 #echo ""
 #sudo docker run --net=host --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/sys/fs/cgroup/:/sys/fs/cgroup/:ro -it --name=opsmx-collector -d opsmx11/tcollector
+fi
