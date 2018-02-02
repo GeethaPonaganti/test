@@ -12,3 +12,9 @@ kubectl create -f role.yml
 ```
 kubectl apply -f role_binding.yml
 ```
+4. Get `service-account-token`
+```
+secret=`kubectl describe sa spinnaker | grep Tokens | cut -d ":" -f 2 | tr -d '[:space:]'`
+kubectl describe secrets $secret
+```
+ Copy token and make kubeconfig file
