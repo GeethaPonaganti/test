@@ -17,4 +17,4 @@ kubectl apply -f role_binding.yml
 secret=`kubectl describe sa spinnaker | grep Tokens | cut -d ":" -f 2 | tr -d '[:space:]'`
 kubectl describe secrets $secret
 ```
- Copy token and make kubeconfig file
+ Copy token and make kubeconfig file. Check example config [here](https://github.com/OpsMx/scripts/blob/master/openshift/rbac/config)
