@@ -1,0 +1,10 @@
+server:
+  host_ip: 54.193.82.193
+  user_name: ubuntu
+  key: /Users/geethaponaganti/opsmx/opskey_db.pem
+
+script: /home/ubuntu/geethap/testscript.py
+
+
+
+
